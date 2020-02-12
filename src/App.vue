@@ -1,28 +1,45 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app id="inspire">
+    <sidebar></sidebar>
+    <v-content>
+      <v-container fluid>
+        <v-row align="center" justify="center">
+          <v-col cols="12" sm="12" md="9">
+            <v-card class="elevation-12">
+              <toolbar></toolbar>
+              <app-header></app-header>
+              <v-card-text>
+                <router-view></router-view>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Toolbar from "./components/Layout/Toolbar";
+import Sidebar from "./components/Layout/Sidebar";
+import AppHeader from "./components/Layout/AppHeader";
 
 export default {
-  name: 'app',
   components: {
-    HelloWorld
+    Toolbar,
+    Sidebar,
+    AppHeader
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+$break-mobile: 768px;
+
+.container,
+.container .row > [class^="col-"] {
+  @media screen and (max-width: $break-mobile) {
+    padding: 0 6px 0 6px;
+  }
 }
 </style>
