@@ -1,11 +1,13 @@
 import { GenerateRandomDataSet } from "../utils";
-import { BubbleSort } from "../algorithms";
+import * as algorithms from "../algorithms";
+import * as algorithmsNames from "../constants/algorithm-names"
 
 const store = {
   state: {
     data: [],
-    dataSize: 4,
-    activeIndexes: [],
+    dataSize: 15,
+    indexesStates: [],
+    selectedSortingAlgorithm: algorithmsNames.BUBBLE_SORT,
     swaping: false,
     showDrawer: false,
     showHeader: true
@@ -19,8 +21,11 @@ const store = {
     setData(state, data) {
       state.data = data;
     },
-    setActiveIndexes(state, indexes) {
-      state.activeIndexes = indexes;
+    setIndexesStates(state, indexesStates) {
+      state.indexesStates = indexesStates;
+    },
+    setSelectedSortingAlgorithm(state, sortingAlgo) {
+      state.selectedSortingAlgorithm = sortingAlgo;
     },
     setSwaping(state, swaping) {
       state.swaping = swaping;
@@ -34,24 +39,37 @@ const store = {
     setDataSize(state, size) {
       state.dataSize = size;
       state.data = GenerateRandomDataSet(size);
+    },
+    generateRandomData(state) {      
+      state.data = GenerateRandomDataSet(state.dataSize);
     }
   },
   actions: {
-    async bubbleSort({ commit, state }) {
+    async sort({ commit, state }) {
       const updateState = currentDataSet => {
         const copy = currentDataSet.slice();
         commit("setData", copy);
       };
-      const setActiveIndexes = activeIndexes => {
-        // const copy = currentDataSet.slice();
-        commit("setActiveIndexes", activeIndexes);
-      };
-      const setSwaping = swaping => {
-        commit("setSwaping", swaping);
+      const setIndexesStates = indexesStates => {
+        commit("setIndexesStates", indexesStates);
       };
 
       commit("setShowHeader", false);
-      await BubbleSort(state.data, updateState, setActiveIndexes, setSwaping);
+
+      switch (state.selectedSortingAlgorithm) {
+        case algorithmsNames.BUBBLE_SORT:
+          await algorithms.BubbleSort(state.data, updateState, setIndexesStates);
+          break;
+
+        case algorithmsNames.INSERTION_SORT:
+          await algorithms.InsertionSort(state.data, updateState, setIndexesStates);
+          break;
+
+        case algorithmsNames.SELECTION_SORT:
+          await algorithms.SelectionSort(state.data, updateState, setIndexesStates);
+          break;
+      }
+      
       commit("setShowHeader", true);
     }
   }

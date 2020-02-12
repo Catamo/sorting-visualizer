@@ -26,6 +26,7 @@
         <v-col class="d-flex" cols="12">
           <v-select
             :items="items"
+            v-model="selectedSortingAlgorithm"
             label="Sorting Algorithm"
             outlined
           ></v-select>
@@ -49,7 +50,7 @@
       </v-row>
       <v-row class="ma-0" :class="{ 'opacity-0': sizeIsChanging }">
         <v-col class="d-flex justify-center" cols="12">
-          <v-btn outlined color="#6b77cc" @click="sortButtonClickHandler">Sort</v-btn>
+          <v-btn outlined color="#6b77cc" @click="sortButtonClickHandler">{{ selectedSortingAlgorithm }}</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -58,6 +59,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import * as algoNames from '../../constants/algorithm-names'
 
 export default {
   computed: {
@@ -77,10 +79,26 @@ export default {
       set(value) {
         this.$store.commit("setDataSize", value);
       }
+    },
+    selectedSortingAlgorithm: {
+      get() {
+        return this.$store.state.selectedSortingAlgorithm;
+      },
+      set(value) {
+        this.$store.commit("setSelectedSortingAlgorithm", value);
+      }
+    },
+    items() {
+      return Object.keys(algoNames).map(key => {
+        return {
+          text: algoNames[key], 
+          value: algoNames[key]
+        }
+      })
     }
   },
   methods: {
-    ...mapActions(["bubbleSort"]),
+    ...mapActions(["sort"]),
     hideDrawer() {
       this.show = false;
     },
@@ -95,17 +113,11 @@ export default {
     },
     sortButtonClickHandler() {
       this.hideDrawer();
-      this.bubbleSort();
+      this.sort();
     }
   },
   data() {
     return {
-      items: [
-        { text: "Merge Sort", value: "merge" },
-        { text: "Quick Sort", value: "quick" },
-        { text: "Heap Sort", value: "heap" },
-        { text: "Bubble Sort", value: "bubble" }
-      ],
       sizeIsChanging: false,
       sizeVal: 0
     };

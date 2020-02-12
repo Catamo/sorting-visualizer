@@ -2,10 +2,11 @@
   <ul :class="alertVisible && 'alert-visible'">
     <li v-for="(dataPoint, index) in data" :key="dataPoint">
       <div class="bar">
-        <div 
-          class="value" 
-          :class="{'active': activeIndexes.includes(index), 'swaping': swaping}"
-          :style="`height: ${calcHeight(dataPoint)}%;`"></div>
+        <div
+          class="value"
+          :class="getStateClass(index)"
+          :style="`height: ${calcHeight(dataPoint)}%;`"
+        ></div>
       </div>
     </li>
   </ul>
@@ -14,22 +15,32 @@
 <script>
 import { mapState } from "vuex";
 import { mapGetters } from "vuex";
+import { SELECTED, TRAVERSING, SWAPING } from "../../constants/index-states";
 
 export default {
   computed: {
     ...mapState({
       data: state => state.data,
-      activeIndexes: state => state.activeIndexes,
+      indexesStates: state => state.indexesStates,
       swaping: state => state.swaping,
       alertVisible: state => state.show
     }),
-    ...mapGetters([
-      'dataMaxValue'
-    ])
+    ...mapGetters(["dataMaxValue"])
   },
   methods: {
     calcHeight(point) {
       return (point / this.dataMaxValue) * 100;
+    },
+    getStateClass(index) {
+      if (this.indexesStates[index] == SELECTED) {
+        return 'active';
+      }
+      if (this.indexesStates[index] == TRAVERSING) {
+        return 'traversing';
+      }
+      if (this.indexesStates[index] == SWAPING) {
+        return 'swaping';
+      }
     }
   }
 };
@@ -82,10 +93,14 @@ ul {
 
         &.active {
           background: #92cc6b;
+        }
 
-          &.swaping {
-            background: #cc6b6b;
-          }
+        &.swaping {
+          background: #cc6b6b;
+        }
+
+        &.traversing {
+          background: #ad6bcc;
         }
       }
     }

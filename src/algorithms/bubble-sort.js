@@ -1,6 +1,7 @@
 import { Pause } from '../utils'
+import { SWAPING, SELECTED } from '../constants/index-states';
 
-const BubbleSort = async (array, callbackSetData, callbackSetActiveIndexes, callbackSwaping) => {
+const BubbleSort = async (array, callbackSetData, callbackSetIndexesStates) => {
     const n = array.length;
 
     let isSorted = false;
@@ -8,12 +9,17 @@ const BubbleSort = async (array, callbackSetData, callbackSetActiveIndexes, call
         isSorted = true;
 
         for (let i = 0; i < n - 1; i++) {
-            callbackSwaping(false);
-            callbackSetActiveIndexes([i, i + 1]);
+            callbackSetIndexesStates({ 
+                [i]: SELECTED, 
+                [i + 1]: SELECTED
+            });
             await Pause(200);
 
             if (array[i] > array[i + 1]) {
-                callbackSwaping(true);
+                callbackSetIndexesStates({ 
+                    [i]: SWAPING, 
+                    [i + 1]: SWAPING
+                });
                 await Pause(200);
                 let temp = array[i + 1];
                 array[i + 1] = array[i];
@@ -30,7 +36,7 @@ const BubbleSort = async (array, callbackSetData, callbackSetActiveIndexes, call
         await Pause(200);
     }
 
-    callbackSetActiveIndexes([]);
+    callbackSetIndexesStates({});
 }
 
 export default BubbleSort;
