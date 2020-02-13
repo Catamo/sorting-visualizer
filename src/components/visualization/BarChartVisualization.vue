@@ -57,14 +57,14 @@ ul {
   height: calc(90vh - 145px);
 
   @media screen and (max-width: $break-mobile) {
-    height: calc(100vh - 185px);
+    height: calc(97.5vh - 185px);
   }
 
   &.alert-visible {
     height: calc(100vh - 228px);
 
     @media screen and (max-width: $break-mobile) {
-      height: calc(100vh - 185px);
+      height: calc(97.5vh - 185px);
     }
   }
 
