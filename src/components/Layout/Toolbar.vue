@@ -4,24 +4,23 @@
     <v-toolbar-title>Sorting Visualizer</v-toolbar-title>
     <v-spacer></v-spacer>
 
-    <v-menu left bottom>
-      <template v-slot:activator="{ n }">
-        <v-btn icon v-on="n">
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-      </template>
-
-      <v-list>
-        <v-list-item v-for="n in 5" :key="n" @click="() => {}">
-          <v-list-item-title>Option {{ n }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+    <span v-html="complexityText" class="d-none d-sm-flex"></span>
   </v-app-bar>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { ComplexityDictionary } from '../../constants/algorithms-complexities'
+
 export default {
+  computed: {
+    ...mapState([
+      'selectedSortingAlgorithm'
+    ]),
+    complexityText() {
+      return `<b>${this.selectedSortingAlgorithm}:</b> ${ComplexityDictionary[this.selectedSortingAlgorithm]}`;
+    }
+  },
   methods: {
     showDrawer() {
       this.$store.commit("setShowDrawer", true);
@@ -29,3 +28,9 @@ export default {
   }
 };
 </script>
+
+<style lang="css">
+sup {
+    top: 0.5em !important;
+}
+</style>

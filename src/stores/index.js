@@ -1,6 +1,6 @@
 import { GenerateRandomDataSet } from "../utils";
 import * as algorithms from "../algorithms";
-import * as algorithmsNames from "../constants/algorithm-names"
+import * as algorithmsNames from "../constants/algorithms-names"
 
 const store = {
   state: {
@@ -8,9 +8,9 @@ const store = {
     dataSize: 15,
     indexesStates: [],
     selectedSortingAlgorithm: algorithmsNames.BUBBLE_SORT,
-    swaping: false,
+    sortingSpeed: 10,
+    isSorting: false,
     showDrawer: false,
-    showHeader: true
   },
   getters: {
     dataMaxValue: state => {
@@ -27,14 +27,17 @@ const store = {
     setSelectedSortingAlgorithm(state, sortingAlgo) {
       state.selectedSortingAlgorithm = sortingAlgo;
     },
-    setSwaping(state, swaping) {
-      state.swaping = swaping;
+    setSortingSpeed(state, speed) {
+      state.sortingSpeed = speed;
+    },
+    setIsSorting(state, sorting) {
+      state.isSorting = sorting;
     },
     setShowDrawer(state, show) {
       state.showDrawer = show;
     },
-    setShowHeader(state, show) {
-      state.showHeader = show;
+    setShowSnackbar(state, show) {
+      state.showSnackbar = show;
     },
     setDataSize(state, size) {
       state.dataSize = size;
@@ -53,24 +56,27 @@ const store = {
       const setIndexesStates = indexesStates => {
         commit("setIndexesStates", indexesStates);
       };
+      const getSortingSpeed = () => {
+        return state.sortingSpeed;
+      };
 
-      commit("setShowHeader", false);
+      commit("setIsSorting", true);
 
       switch (state.selectedSortingAlgorithm) {
         case algorithmsNames.BUBBLE_SORT:
-          await algorithms.BubbleSort(state.data, updateState, setIndexesStates);
+          await algorithms.BubbleSort(state.data, updateState, setIndexesStates, getSortingSpeed);
           break;
 
         case algorithmsNames.INSERTION_SORT:
-          await algorithms.InsertionSort(state.data, updateState, setIndexesStates);
+          await algorithms.InsertionSort(state.data, updateState, setIndexesStates, getSortingSpeed);
           break;
 
         case algorithmsNames.SELECTION_SORT:
-          await algorithms.SelectionSort(state.data, updateState, setIndexesStates);
+          await algorithms.SelectionSort(state.data, updateState, setIndexesStates, getSortingSpeed);
           break;
       }
       
-      commit("setShowHeader", true);
+      commit("setIsSorting", false);
     }
   }
 };

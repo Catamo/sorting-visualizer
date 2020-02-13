@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire">
-    <sidebar></sidebar>
     <v-content>
       <v-container fluid>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="12" md="9">
             <v-card class="elevation-12">
+              <sidebar></sidebar>
               <toolbar></toolbar>
               <app-header></app-header>
               <v-card-text>
@@ -35,6 +35,13 @@ export default {
 
 <style lang="scss">
 $break-mobile: 768px;
+
+@media screen and (max-width: $break-mobile) {
+  html,
+  body {
+    overflow: hidden;
+  }
+}
 
 .container,
 .container .row > [class^="col-"] {

@@ -33,13 +33,13 @@ export default {
     },
     getStateClass(index) {
       if (this.indexesStates[index] == SELECTED) {
-        return 'active';
+        return "active";
       }
       if (this.indexesStates[index] == TRAVERSING) {
-        return 'traversing';
+        return "traversing";
       }
       if (this.indexesStates[index] == SWAPING) {
-        return 'swaping';
+        return "swaping";
       }
     }
   }
@@ -54,17 +54,17 @@ ul {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: calc(80vh - 144px);
+  height: calc(90vh - 145px);
 
   @media screen and (max-width: $break-mobile) {
-    height: calc(100vh - 88px);
+    height: calc(100vh - 185px);
   }
 
   &.alert-visible {
     height: calc(100vh - 228px);
 
     @media screen and (max-width: $break-mobile) {
-      height: calc(100vh - 172px);
+      height: calc(100vh - 185px);
     }
   }
 

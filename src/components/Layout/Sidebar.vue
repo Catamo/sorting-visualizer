@@ -3,8 +3,10 @@
     class="app-drawer"
     :class="{ transparent: sizeIsChanging }"
     v-model="show"
-    width="100vw"
-    absolute
+    v-if="show"
+    :width="window.width >= 1100 ? '30vw' : '100vw'"
+    floating=""
+    absolute=""
     temporary
   >
     <v-list-item>
@@ -25,6 +27,7 @@
       <v-row class="ma-0" :class="{ 'opacity-0': sizeIsChanging }">
         <v-col class="d-flex" cols="12">
           <v-select
+            :disabled="isSorting"
             :items="items"
             v-model="selectedSortingAlgorithm"
             label="Sorting Algorithm"
@@ -36,6 +39,7 @@
         <v-col cols="12">
           <v-subheader class="pl-0">Dataset Size</v-subheader>
           <v-slider
+            :disabled="isSorting"
             v-model="datasetSize"
             thumb-label
             track-color="#6b77cc80"
@@ -48,9 +52,41 @@
           ></v-slider>
         </v-col>
       </v-row>
+      <v-row class="ma-0 slider-container">
+        <v-col cols="12">
+          <v-subheader class="pl-0">Sorting Speed</v-subheader>
+          <v-slider
+            v-model="sortingSpeed"
+            thumb-label
+            track-color="#6b77cc80"
+            color="#6b77cc"
+            min="5"
+            max="20"
+            @start="sliderStartHandler"
+            @end="sliderEndHandler"
+            @change="sliderChangeHandler"
+          ></v-slider>
+        </v-col>
+      </v-row>
       <v-row class="ma-0" :class="{ 'opacity-0': sizeIsChanging }">
         <v-col class="d-flex justify-center" cols="12">
-          <v-btn outlined color="#6b77cc" @click="sortButtonClickHandler">{{ selectedSortingAlgorithm }}</v-btn>
+          <v-btn
+            class="mr-4"
+            :disabled="isSorting"
+            color="#6b77cc"
+            outlined=""
+            @click="randomizeDataHandler"
+            >Randomize and {{ selectedSortingAlgorithm }}</v-btn
+          >
+        </v-col>
+        <v-col class="d-flex justify-center" cols="12">
+          <v-btn
+            :disabled="isSorting"
+            outlined
+            color="#6b77cc"
+            @click="sortButtonClickHandler"
+            >Apply {{ selectedSortingAlgorithm }}</v-btn
+          >
         </v-col>
       </v-row>
     </v-container>
@@ -58,8 +94,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import * as algoNames from '../../constants/algorithm-names'
+import { mapActions, mapState, mapMutations } from "vuex";
+import * as algoNames from "../../constants/algorithms-names";
 
 export default {
   computed: {
@@ -80,6 +116,14 @@ export default {
         this.$store.commit("setDataSize", value);
       }
     },
+    sortingSpeed: {
+      get() {
+        return this.$store.state.sortingSpeed;
+      },
+      set(value) {
+        this.$store.commit("setSortingSpeed", value);
+      }
+    },
     selectedSortingAlgorithm: {
       get() {
         return this.$store.state.selectedSortingAlgorithm;
@@ -91,13 +135,15 @@ export default {
     items() {
       return Object.keys(algoNames).map(key => {
         return {
-          text: algoNames[key], 
+          text: algoNames[key],
           value: algoNames[key]
-        }
-      })
-    }
+        };
+      });
+    },
+    ...mapState(["isSorting"])
   },
   methods: {
+    ...mapMutations(["generateRandomData"]),
     ...mapActions(["sort"]),
     hideDrawer() {
       this.show = false;
@@ -114,12 +160,32 @@ export default {
     sortButtonClickHandler() {
       this.hideDrawer();
       this.sort();
+    },
+    randomizeDataHandler() {
+      this.hideDrawer();
+      this.generateRandomData();
+      this.sort();
+    },
+    handleResize() {
+      this.window.width = window.innerWidth;
+      this.window.height = window.innerHeight;
     }
+  },
+  created() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
   },
   data() {
     return {
       sizeIsChanging: false,
-      sizeVal: 0
+      sizeVal: 0,
+      window: {
+        width: 0,
+        height: 0
+      }
     };
   }
 };
