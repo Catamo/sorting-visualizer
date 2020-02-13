@@ -4,7 +4,7 @@ import * as algorithmsNames from "../constants/algorithms-names"
 
 const store = {
   state: {
-    data: [],
+    data: GenerateRandomDataSet(15),
     dataSize: 15,
     indexesStates: [],
     selectedSortingAlgorithm: algorithmsNames.BUBBLE_SORT,
