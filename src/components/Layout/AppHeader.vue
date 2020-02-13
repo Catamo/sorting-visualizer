@@ -11,16 +11,16 @@
     </v-alert>
     <v-alert color="#6b77cc" tile v-if="isSorting" outlined="">
       <v-row justify="center" no-gutters>
-        <v-col cols="3" sm="4" class="text-center">
+        <v-col cols="1" class="text-center">
           <v-btn text icon color="#6b77cc" @click="decreaseSpeedHandler">
             <v-icon>mdi-rewind</v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="6" sm="4" class="text-center">
+        <v-col cols="10" class="text-center">
           Now running: {{ selectedSortingAlgorithm }} <br />
           Sorting Visualization Speed: {{ sortingSpeed }}
         </v-col>
-        <v-col cols="3" sm="4" class="text-center">
+        <v-col cols="1" class="text-center">
           <v-btn text icon color="#6b77cc" @click="increaseSpeedHandler">
             <v-icon>mdi-fast-forward</v-icon>
           </v-btn>
