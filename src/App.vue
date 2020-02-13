@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import Toolbar from "./components/layout/Toolbar";
-import Sidebar from "./components/layout/Sidebar";
-import AppHeader from "./components/layout/AppHeader";
+import Toolbar from "./components/Layout/Toolbar";
+import Sidebar from "./components/Layout/Sidebar";
+import AppHeader from "./components/Layout/AppHeader";
 
 export default {
   components: {
