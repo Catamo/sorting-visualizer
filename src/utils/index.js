@@ -28,27 +28,17 @@ export const Pause = milliseconds => {
   });
 };
 
-export const OpenFullscreen = () => {
-  let elem = document.documentElement;
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.mozRequestFullScreen) { /* Firefox */
-    elem.mozRequestFullScreen();
-  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    elem.msRequestFullscreen();
-  }
-}
+export const ToggleFullscreen = () => {
+  let doc = window.document;
+  let docEl = doc.documentElement;
 
-export const CloseFullscreen = () => {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.mozCancelFullScreen) { /* Firefox */
-    document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE/Edge */
-    document.msExitFullscreen();
+  let requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+  let cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    requestFullScreen.call(docEl);
+  }
+  else {
+    cancelFullScreen.call(doc);
   }
 }

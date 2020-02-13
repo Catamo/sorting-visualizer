@@ -25,7 +25,7 @@
 <script>
 import { mapState } from "vuex";
 import { ComplexityDictionary } from "../../constants/algorithms-complexities";
-import { OpenFullscreen, CloseFullscreen } from "../../utils/index";
+import { ToggleFullscreen } from "../../utils/index";
 
 export default {
   computed: {
@@ -41,13 +41,7 @@ export default {
       this.$store.commit("setShowDrawer", true);
     },
     toggleFullScreen() {
-      if (this.isFullScreen) {
-        CloseFullscreen();
-      }
-      else {
-        OpenFullscreen();
-      }
-
+      ToggleFullscreen();
       this.isFullScreen = !this.isFullScreen;
     }
   },
