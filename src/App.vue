@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-content>
-      <v-container fluid>
+      <v-container>
         <v-row align="center" justify="center" :class="'fill-height'">
           <v-col cols="12" :class="'fill-height'">
             <v-card class="elevation-6 d-flex flex-column" :class="'fill-height'">
@@ -40,11 +40,13 @@ $break-mobile: 768px;
   html,
   body {
     overflow: hidden;
+    overflow: -moz-hidden-unscrollable;
   }
 }
 
 .container {
   height: 100%;
+  width: 100% !important;
 }
 
 .container,
