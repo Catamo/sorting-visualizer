@@ -2,13 +2,13 @@
   <v-app id="inspire">
     <v-content>
       <v-container fluid>
-        <v-row align="center" justify="center">
-          <v-col cols="12" sm="12" md="9">
-            <v-card class="elevation-12">
+        <v-row align="center" justify="center" :class="'fill-height'">
+          <v-col cols="12" :class="'fill-height'">
+            <v-card class="elevation-6 d-flex flex-column" :class="'fill-height'">
               <sidebar></sidebar>
               <toolbar></toolbar>
               <app-header></app-header>
-              <v-card-text>
+              <v-card-text :class="'fill-height'">
                 <router-view></router-view>
               </v-card-text>
             </v-card>
@@ -43,8 +43,12 @@ $break-mobile: 768px;
   }
 }
 
+.container {
+  height: 100%;
+}
+
 .container,
-.container .row > [class^="col-"] {
+.container .row > [class^="col"] {
   @media screen and (max-width: $break-mobile) {
     padding: 0 6px 0 6px;
   }

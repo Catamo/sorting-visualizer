@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="'fill-height'">
     <bar-chart-visualization />
   </div>
 </template>
