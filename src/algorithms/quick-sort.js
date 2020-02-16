@@ -52,7 +52,7 @@ const QuickSortHelper = async (array, startIndex, endIndex) => {
 
     //visualizer code
     await FadeOutAllButRange(startIndex, endIndex + 1);
-    debugger
+    
     while (leftIndex <= rightIndex) {
         if (array[pivotIndex] <= array[leftIndex] && array[pivotIndex] >= array[rightIndex]) {
             _callbackSetIndexesStates({ 
