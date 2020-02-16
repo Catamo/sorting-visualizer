@@ -1,5 +1,5 @@
 import { Pause } from '../utils'
-import { SELECTED, SWAPING, FADED_OUT, UNSELECTED, TRAVERSING } from '../constants/index-states';
+import { SELECTED, SWAPING, UNSELECTED, TRAVERSING } from '../constants/index-states';
 
 let _visualizerArray = []
 let _callbackSetData, _callbackSetIndexesStates, _getSortingSpeed;
