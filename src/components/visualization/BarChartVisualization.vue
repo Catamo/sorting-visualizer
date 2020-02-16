@@ -15,7 +15,7 @@
 <script>
 import { mapState } from "vuex";
 import { mapGetters } from "vuex";
-import { SELECTED, TRAVERSING, SWAPING } from "../../constants/index-states";
+import { SELECTED, TRAVERSING, SWAPING, FADED_OUT } from "../../constants/index-states";
 
 export default {
   computed: {
@@ -32,14 +32,15 @@ export default {
       return (point / this.dataMaxValue) * 100;
     },
     getStateClass(index) {
-      if (this.indexesStates[index] == SELECTED) {
-        return "active";
-      }
-      if (this.indexesStates[index] == TRAVERSING) {
-        return "traversing";
-      }
-      if (this.indexesStates[index] == SWAPING) {
-        return "swaping";
+      switch (this.indexesStates[index]) {
+        case SELECTED:
+          return "active";
+        case TRAVERSING:
+          return "traversing";
+        case SWAPING:
+          return "swaping";
+        case FADED_OUT:
+          return "faded-out";
       }
     }
   }
@@ -60,8 +61,8 @@ ul {
     width: 5%;
     max-width: 20px;
     float: left;
-    margin-left: 0.5%;
-    margin-right: 0.5%;
+    margin-left: 0.125%;
+    margin-right: 0.125%;
     height: 100%;
 
     .bar {
@@ -89,6 +90,10 @@ ul {
 
         &.traversing {
           background: #ad6bcc;
+        }
+
+        &.faded-out {
+          opacity: 0.125;
         }
       }
     }

@@ -16,7 +16,7 @@ export default {
   computed: {
     ...mapState(["selectedSortingAlgorithm"]),
     complexityText() {
-      return `<b>${this.selectedSortingAlgorithm}:</b> ${
+      return `<b>${this.selectedSortingAlgorithm}</b>&nbsp;- ${
         ComplexityDictionary[this.selectedSortingAlgorithm]
       }`;
     }

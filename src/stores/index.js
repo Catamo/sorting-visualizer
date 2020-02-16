@@ -74,6 +74,10 @@ const store = {
         case algorithmsNames.SELECTION_SORT:
           await algorithms.SelectionSort(state.data, updateState, setIndexesStates, getSortingSpeed);
           break;
+
+        case algorithmsNames.MERGE_SORT_RECURSIVE:
+          await algorithms.MergeSort(state.data, updateState, setIndexesStates, getSortingSpeed);
+          break;
       }
       
       commit("setIsSorting", false);

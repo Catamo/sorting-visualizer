@@ -18,7 +18,7 @@
       </v-list-item-icon>
     </v-list-item>
 
-    <v-container>
+    <div class="px-4">
       <v-row class="ma-0" :class="{ 'opacity-0': sizeIsChanging }">
         <v-col class="d-flex justify-center" cols="12">
           <h3>Configuration</h3>
@@ -71,6 +71,15 @@
       <v-row class="ma-0" :class="{ 'opacity-0': sizeIsChanging }">
         <v-col class="d-flex justify-center" cols="12">
           <v-btn
+            :disabled="isSorting"
+            :class="'white--text'"
+            color="#6b77cc"
+            @click="sortButtonClickHandler"
+            >Apply {{ selectedSortingAlgorithm }}</v-btn
+          >
+        </v-col>
+        <v-col class="d-flex justify-center" cols="12">
+          <v-btn
             class="mr-4"
             :disabled="isSorting"
             color="#6b77cc"
@@ -79,17 +88,8 @@
             >Randomize and {{ selectedSortingAlgorithm }}</v-btn
           >
         </v-col>
-        <v-col class="d-flex justify-center" cols="12">
-          <v-btn
-            :disabled="isSorting"
-            outlined
-            color="#6b77cc"
-            @click="sortButtonClickHandler"
-            >Apply {{ selectedSortingAlgorithm }}</v-btn
-          >
-        </v-col>
       </v-row>
-    </v-container>
+    </div>
   </v-navigation-drawer>
 </template>
 
