@@ -55,4 +55,12 @@ $break-mobile: 768px;
     padding: 0 6px 0 6px;
   }
 }
+
+.v-application div code {
+    padding-top: 1px;
+    background-color: transparent;
+    color: inherit;
+    -webkit-box-shadow: none; 
+    box-shadow: none;
+}
 </style>
