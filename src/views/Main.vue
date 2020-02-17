@@ -6,10 +6,26 @@
 
 <script>
 import BarChartVisualization from "../components/visualization/BarChartVisualization";
+import { mapMutations } from "vuex";
+import { AlgorithmsRoutesDictionary } from "../constants/algorithms-routes";
 
 export default {
+  props: {
+    algorithm: String
+  },
   components: {
     BarChartVisualization
+  },
+  methods: {
+    ...mapMutations(["setSelectedSortingAlgorithm"])
+  },
+  created() {
+    if (this.algorithm) {
+      this.setSelectedSortingAlgorithm(
+        AlgorithmsRoutesDictionary[this.algorithm]
+      );
+      this.$router.push("/");
+    }
   }
 };
 </script>
