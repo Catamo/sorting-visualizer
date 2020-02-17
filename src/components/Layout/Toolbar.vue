@@ -11,10 +11,15 @@
         </v-btn>
       </template>
       <v-sheet class="text-center" height="65vh">
-        <v-btn text icon @click="showBottomSheet = !showBottomSheet">
+        <v-btn
+          text
+          icon
+          @click="showBottomSheet = !showBottomSheet"
+          class="mt-2"
+        >
           <v-icon>mdi-chevron-down</v-icon>
         </v-btn>
-        <div class="py-3">
+        <div class="py-2">
           <complexities-table />
         </div>
       </v-sheet>
