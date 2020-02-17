@@ -1,29 +1,5 @@
-# sorting-visualizer
+# Sorting Visualizer
 
-## Project setup
-```
-yarn install
-```
+Sorting algorithms visualizer made in Vue. I am currently learning again some Computer Science topics and wanted to cement the way that different sorting algorithms worked, so I did the project to apply the principle of learning by doing.
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+You can check it out at the following link: [https://catamo.github.io/sorting-visualizer/](https://catamo.github.io/sorting-visualizer/)
