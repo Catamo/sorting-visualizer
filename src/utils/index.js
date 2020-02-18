@@ -1,5 +1,5 @@
 export const GenerateRandomNumber = (maxNumber = 100) => {
-  return Math.round(Math.random() * (maxNumber - 1) + 1);;
+  return Math.round(Math.random() * (maxNumber - 1) + 1);
 };
 
 export const GenerateRandomDataSet = size => {

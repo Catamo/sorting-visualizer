@@ -94,7 +94,6 @@ describe("SortingAlgorithms", () => {
       });
 
       if (!isEqual) {
-        console.log("==========", resultArray, localOrderedArray);
         return false;
       }
     }
