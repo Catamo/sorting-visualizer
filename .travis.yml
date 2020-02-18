@@ -4,7 +4,9 @@ node_js:
 
 cache: npm
 
-script: npm run build
+script: npm run test:unit
+
+before_deploy: npm run build
 
 deploy:
  provider: pages
