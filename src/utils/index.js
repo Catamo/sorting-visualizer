@@ -1,3 +1,7 @@
+export const GenerateRandomNumber = (maxNumber = 100) => {
+  return Math.round(Math.random() * (maxNumber - 1) + 1);;
+};
+
 export const GenerateRandomDataSet = size => {
   const addedNumbers = {};
   const result = [];
@@ -5,7 +9,7 @@ export const GenerateRandomDataSet = size => {
   let randomNumber;
   let currentIndex = 0;
   while (currentIndex < size) {
-    randomNumber = Math.round(Math.random() * (size - 1) + 1);
+    randomNumber = GenerateRandomNumber(size);
 
     if (!addedNumbers[randomNumber]) {
       //if the number was not added before...
